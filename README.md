@@ -59,7 +59,8 @@ ollama run gemma3:27b
 ```
 
 ## 📂 디렉토리 구조 (Folder Structure)
-```
+
+```bash
 📦 ai-rfp-analyzer
  ┣ 📜 app.py                   # Streamlit 프론트엔드 UI
  ┣ 📜 server.py                # FastAPI 백엔드 서버
