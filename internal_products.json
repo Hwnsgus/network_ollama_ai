@@ -1,0 +1,32 @@
+[
+  {
+    "category": "전자교탁",
+    "maker": "MyCompany (자사생산)",
+    "model": "SmartPodium-X1",
+    "specs": "22인치 판서 모니터, 전동 높낮이 조절, HDMI 입출력, 앰프 내장, 900x700x1100mm"
+  },
+  {
+    "category": "전자교탁",
+    "maker": "MyCompany (자사생산)",
+    "model": "SmartPodium-Pro",
+    "specs": "24인치 터치 모니터, 듀얼 슬라이딩 커버, 통합 컨트롤러 내장, 구즈넥 마이크 포함"
+  },
+  {
+    "category": "전자칠판",
+    "maker": "PartnerLink (협력사)",
+    "model": "EduBoard-86",
+    "specs": "86인치 UHD, 안드로이드 13, 제로갭 본딩, 40포인트 터치, USB-C PD 지원"
+  },
+  {
+    "category": "전자칠판",
+    "maker": "PartnerLink (협력사)",
+    "model": "EduBoard-98",
+    "specs": "98인치 초대형, 4K, 듀얼 와이파이, 카메라/마이크 내장"
+  },
+  {
+    "category": "전원분배기",
+    "maker": "MyCompany (자사생산)",
+    "model": "PowerSeq-8ch",
+    "specs": "8채널 순차 전원 공급기, 전압 표시 디스플레이, 링크 기능"
+  }
+]
