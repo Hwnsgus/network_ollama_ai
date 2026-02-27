@@ -78,25 +78,25 @@ ollama run gemma3:27b
 ### 1. 시스템 컴포넌트 구조도
 ```mermaid
 flowchart TB
-    subgraph User_Environment [사용자 환경 (Windows / Mac)]
-        Browser[인터넷 브라우저\n(크롬, 엣지 등)]
+    subgraph User_Environment ["사용자 환경 (Windows / Mac)"]
+        Browser["인터넷 브라우저<br>(크롬, 엣지 등)"]
     end
 
-    subgraph Ubuntu_Server [Ubuntu 미니 PC (항시 실행 로컬 서버)]
-        subgraph Frontend [Frontend 영역 (Port: 8501)]
-            Streamlit[app.py\n(Streamlit UI)]
+    subgraph Ubuntu_Server ["Ubuntu 미니 PC (항시 실행 로컬 서버)"]
+        subgraph Frontend ["Frontend 영역 (Port: 8501)"]
+            Streamlit["app.py<br>(Streamlit UI)"]
         end
 
-        subgraph Backend [Backend 영역 (Port: 8000)]
-            FastAPI[server.py\n(FastAPI Server)]
-            Main[main.py\n(Core Logic)]
-            Ollama[(Ollama Engine\ngemma3:27b)]
+        subgraph Backend ["Backend 영역 (Port: 8000)"]
+            FastAPI["server.py<br>(FastAPI Server)"]
+            Main["main.py<br>(Core Logic)"]
+            Ollama[("Ollama Engine<br>gemma3:27b")]
         end
 
-        subgraph Storage [로컬 파일 시스템]
-            DB[internal_products.json\n(자사 DB)]
-            Uploads[uploads/ 폴더\n(임시 PDF)]
-            Outputs[outputs/ 폴더\n(결과물 엑셀)]
+        subgraph Storage ["로컬 파일 시스템"]
+            DB["internal_products.json<br>(자사 DB)"]
+            Uploads["uploads/ 폴더<br>(임시 PDF)"]
+            Outputs["outputs/ 폴더<br>(결과물 엑셀)"]
         end
 
         Streamlit -- REST API 통신 --> FastAPI
@@ -107,8 +107,9 @@ flowchart TB
         Main -- 엑셀 생성 --> Outputs
     end
 
-    Browser -- "http://192.168.x.x:8501 접속" --> Streamlit
+    Browser -- "[http://192.168.](http://192.168.)x.x:8501 접속" --> Streamlit
 
+```
 
 sequenceDiagram
     actor User as 사용자 (Windows)
