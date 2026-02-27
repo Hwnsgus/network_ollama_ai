@@ -31,8 +31,8 @@
 - **AI Engine:** `Ollama` (gemma3:27b 등 로컬 LLM 구동)
 - **Infra:** 24시간 상시 가동되는 사내 전용 Ubuntu 미니 PC 서버
 
-*(여기에 시스템 구조도나 웹 화면 캡처 사진을 넣으면 좋습니다)*
-> `![시스템 캡처 화면](C:\git\network_ollama_ai\images\app.py.png)`
+
+> ![시스템 캡처 화면](C:\git\network_ollama_ai\images\app.py.png)
 
 ---
 
