@@ -56,3 +56,14 @@ curl -fsSL [https://ollama.com/install.sh](https://ollama.com/install.sh) | sh
 
 # AI 모델 다운로드 (예: gemma3:27b)
 ollama run gemma3:27b
+
+## 📂 디렉토리 구조 (Folder Structure)
+```
+📦 ai-rfp-analyzer
+ ┣ 📜 app.py                   # Streamlit 프론트엔드 UI
+ ┣ 📜 server.py                # FastAPI 백엔드 서버
+ ┣ 📜 main.py                  # 핵심 AI 프롬프트 및 데이터 처리 로직
+ ┣ 📜 internal_products.json   # 자사/협력사 제품 DB (사전 학습용)
+ ┣ 📂 uploads/                 # 업로드된 PDF 임시 저장소
+ ┗ 📂 outputs/                 # 생성된 결과물(Excel) 저장소
+ ```
