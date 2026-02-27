@@ -33,6 +33,7 @@
 
 
 > ![시스템 캡처 화면](images/app.py.png)
+> ![분석 결과 화면](images/output.py.png)
 
 ---
 
@@ -70,6 +71,12 @@ ollama run gemma3:27b
  ┗ 📂 outputs/                 # 생성된 결과물(Excel) 저장소
  ```
 
+## 🏗️ 시스템 아키텍처 (Architecture)
+
+본 프로젝트는 사내망에서 누구나 접속하여 사용할 수 있도록 **클라이언트-서버 모델**로 구축되었습니다.
+
+### 1. 시스템 컴포넌트 구조도
+```mermaid
 flowchart TB
     subgraph User_Environment [사용자 환경 (Windows / Mac)]
         Browser[인터넷 브라우저\n(크롬, 엣지 등)]
@@ -102,7 +109,8 @@ flowchart TB
 
     Browser -- "http://192.168.x.x:8501 접속" --> Streamlit
 
-    sequenceDiagram
+
+sequenceDiagram
     actor User as 사용자 (Windows)
     participant UI as app.py (Streamlit)
     participant API as server.py (FastAPI)
