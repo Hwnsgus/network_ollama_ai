@@ -69,3 +69,76 @@ ollama run gemma3:27b
  ┣ 📂 uploads/                 # 업로드된 PDF 임시 저장소
  ┗ 📂 outputs/                 # 생성된 결과물(Excel) 저장소
  ```
+
+flowchart TB
+    subgraph User_Environment [사용자 환경 (Windows / Mac)]
+        Browser[인터넷 브라우저\n(크롬, 엣지 등)]
+    end
+
+    subgraph Ubuntu_Server [Ubuntu 미니 PC (항시 실행 로컬 서버)]
+        subgraph Frontend [Frontend 영역 (Port: 8501)]
+            Streamlit[app.py\n(Streamlit UI)]
+        end
+
+        subgraph Backend [Backend 영역 (Port: 8000)]
+            FastAPI[server.py\n(FastAPI Server)]
+            Main[main.py\n(Core Logic)]
+            Ollama[(Ollama Engine\ngemma3:27b)]
+        end
+
+        subgraph Storage [로컬 파일 시스템]
+            DB[internal_products.json\n(자사 DB)]
+            Uploads[uploads/ 폴더\n(임시 PDF)]
+            Outputs[outputs/ 폴더\n(결과물 엑셀)]
+        end
+
+        Streamlit -- REST API 통신 --> FastAPI
+        FastAPI -- 내부 모듈 호출 --> Main
+        Main -- 프롬프트 & 분석 요청 --> Ollama
+        Main -- JSON 읽기 --> DB
+        FastAPI -- 저장 및 삭제 --> Uploads
+        Main -- 엑셀 생성 --> Outputs
+    end
+
+    Browser -- "http://192.168.x.x:8501 접속" --> Streamlit
+
+    sequenceDiagram
+    actor User as 사용자 (Windows)
+    participant UI as app.py (Streamlit)
+    participant API as server.py (FastAPI)
+    participant Core as main.py (로직)
+    participant Ollama as Ollama (AI)
+    participant FileSys as 파일 시스템
+
+    User->>UI: 브라우저 접속
+    UI->>API: GET /health & /api/internal-db/status
+    API->>FileSys: internal_products.json 로드
+    FileSys-->>API: DB 내용
+    API-->>UI: 연결 상태 및 DB 데이터 응답
+    UI-->>User: 메인 화면 표시
+
+    User->>UI: PDF 업로드 및 '분석 시작' 클릭
+    UI->>API: POST /api/process-pdf (파일 전송)
+    
+    API->>FileSys: uploads/ 폴더에 PDF 임시 저장
+    API->>Core: process_pdf(pdf_path, model) 호출
+    
+    Core->>Core: pdfplumber로 PDF 텍스트 추출
+    Core->>Ollama: 텍스트 + DB 데이터 + 프롬프트 전송
+    Note over Core,Ollama: AI가 달러(USD) 추정 후 원화(KRW) 환산
+    Ollama-->>Core: 분석 결과 응답 (JSON 스트링)
+    Core->>Core: 데이터 정제 및 파싱
+    Core-->>API: items (딕셔너리 리스트) 반환
+
+    API->>Core: save_to_excel(items) 호출
+    Core->>FileSys: outputs/ 폴더에 엑셀(.xlsx) 파일 생성
+    API->>FileSys: uploads/ 임시 PDF 파일 삭제 (보안 유지)
+    
+    API-->>UI: 추출된 표 데이터 및 엑셀 다운로드 URL 반환
+    UI-->>User: 화면에 결과 표 출력 및 '엑셀 다운로드' 버튼 활성화
+
+    User->>UI: 다운로드 링크 클릭
+    UI->>API: GET /api/download/{filename}
+    API->>FileSys: 엑셀 파일 로드
+    FileSys-->>API: 엑셀 파일
+    API-->>User: 파일 다운로드 완료
