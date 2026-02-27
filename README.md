@@ -56,6 +56,7 @@ curl -fsSL [https://ollama.com/install.sh](https://ollama.com/install.sh) | sh
 
 # AI 모델 다운로드 (예: gemma3:27b)
 ollama run gemma3:27b
+```
 
 ## 📂 디렉토리 구조 (Folder Structure)
 ```
